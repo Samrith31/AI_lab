@@ -1,0 +1,27 @@
+def main(rules, goal):
+    rules = rules.split(' ')
+    steps = resolve(rules, goal)
+    print('\nStep\t|Clause\t|Derivation\t')
+    print('-' * 30)
+    i = 1
+    for step in steps:
+        print(f' {i}.\t| {step}\t| {steps[step]}\t')
+        i += 1
+     
+
+def negate(term):
+    return f'~{term}' if term[0] != '~' else term[1]
+
+def reverse(clause):
+    if len(clause) > 2:
+        t = split_terms(clause)
+        return f'{t[1]}v{t[0]}'
+    return ''
+     
+
+def split_terms(rule):
+    exp = '(~*[PQRS])'
+    terms = re.findall(exp, rule)
+    return terms
+
+split_terms('~PvR')
